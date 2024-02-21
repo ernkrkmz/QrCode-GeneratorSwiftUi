@@ -13,6 +13,7 @@
 		7020C54F2B80030B009EB690 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7020C54E2B80030B009EB690 /* Preview Assets.xcassets */; };
 		7020C5512B80030B009EB690 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020C5502B80030B009EB690 /* Persistence.swift */; };
 		7020C5542B80030B009EB690 /* qrCodeSwiftUi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7020C5522B80030B009EB690 /* qrCodeSwiftUi.xcdatamodeld */; };
+		7020C55C2B800C8A009EB690 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 7020C55B2B800C8A009EB690 /* QRCode */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7020C55C2B800C8A009EB690 /* QRCode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,9 @@
 			dependencies = (
 			);
 			name = qrCodeSwiftUi;
+			packageProductDependencies = (
+				7020C55B2B800C8A009EB690 /* QRCode */,
+			);
 			productName = qrCodeSwiftUi;
 			productReference = 7020C5442B80030A009EB690 /* qrCodeSwiftUi.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 7020C53B2B80030A009EB690;
+			packageReferences = (
+				7020C55A2B800C8A009EB690 /* XCRemoteSwiftPackageReference "QRCode" */,
+			);
 			productRefGroup = 7020C5452B80030A009EB690 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7020C55A2B800C8A009EB690 /* XCRemoteSwiftPackageReference "QRCode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmrschmidt/QRCode";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7020C55B2B800C8A009EB690 /* QRCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7020C55A2B800C8A009EB690 /* XCRemoteSwiftPackageReference "QRCode" */;
+			productName = QRCode;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7020C5522B80030B009EB690 /* qrCodeSwiftUi.xcdatamodeld */ = {

@@ -7,79 +7,52 @@
 
 import SwiftUI
 import CoreData
+import QRCode
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+    let qrCodeUrl = QRCode(url: URL(string: "https://github.com/ernkrkmz")!, size: CGSize(width: 200, height: 200))
+    @State public var myStr : String = ""
+    
+    @State var myImage: UIImage = try! QRCode(url: URL(string: "www.google..com")! , size: CGSize(width: 200, height: 200))!.image()
+    
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
+
+        VStack(){
+            
+
+                TextField("Paste URL",
+                        text: $myStr)
+                .padding().border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/).multilineTextAlignment(.center).autocorrectionDisabled(true)
+
+            
+                
+
+                Image(uiImage: myImage ).padding()
+            
+            
+                
+                Button(action: {
+                    let qrOlustur = QRCode(url: URL(string: "\(myStr.lowercased())")!, size: CGSize(width: 200, height: 200))
+
+                    myImage = try! qrOlustur!.image()
+                    
+                    
+                    
+                }, label: {
+                    Text("Create QR")
+                }).padding().border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/,width: 1).background(Color.accentColor).foregroundColor(.white)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
+            
+        
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+    
 
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
+    
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+
 
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
